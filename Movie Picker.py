@@ -1,4 +1,3 @@
-# Movie program has two text files of movies - unwatched and watched
 # Every movie is constructed by newMovie function
 # Takes input of name, length, and genre to filter into a new list 
 # Random number generator picks a random number within the total number of movies in the new list
@@ -11,11 +10,13 @@ def actionPick():
     actionInput = input("Do you want to add a movie, pick a movie, or show all movies? ")
     print()
     action = actionInput.lower()
+    whichAction(action)
 
-    if action == "add" or action == "pick" or action == "show":
-        if action == "add":
+def whichAction(someAction):
+    if someAction == "add" or someAction == "pick" or someAction == "show":
+        if someAction == "add":
             addMovie()
-        elif action == "pick":
+        elif someAction == "pick":
             pickMovie()
         else:
             showMovies()
@@ -27,9 +28,11 @@ def pickMovie():
     howToPick = input("Would you like a movie chosen by length or fully random? (Type 'length' or 'random') ")
     print()
     pick = howToPick.lower()
+    whichPick(pick)
 
-    if pick == 'length' or pick == 'random':
-        if pick == 'length':
+def whichPick(somePick):
+    if somePick == 'length' or somePick == 'random':
+        if somePick == 'length':
             maxLength = int(input("Type the maximum length the movie can be (in minutes). "))
             pickedByLength(maxLength)
         else:
@@ -42,7 +45,9 @@ def addMovie():
     newOrOld = input("Has this movie been watched yet? (Type Watched or Unwatched). ")
     print()
     answer = newOrOld.lower()
+    whichAnswer(answer)
 
+def whichAnswer(answer):
     if answer == "watched" or answer == "unwatched":
         if answer == "unwatched":
             movie = input("Type the movie name, length (in minutes), and genre, all separated by commas. ")
@@ -74,7 +79,6 @@ def oldMovie(title, length, genre):
 
 def pickedByLength(maxLength):
     movieList = []
-
     movies = open("Unwatched.txt", "r")
     lines = movies.readlines()
 
@@ -87,9 +91,7 @@ def pickedByLength(maxLength):
             movieList.append(line)
     
     randNum = random.randint(0, (len(movieList)- 1))
-
     randMovie = movieList[randNum]
-
     print(randMovie)
 
 def pickedAtRandom():
