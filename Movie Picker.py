@@ -34,20 +34,25 @@ def whichAction(someAction):
 # Unwatched.txt to be chosen, or if there is a time constraint that needs to be considered.
 # Pick variable is assigned to user input and made lowercase. Calls whichPick to process the user input. 
 def pickMovie():
-    howToPick = input("Would you like a movie chosen by length or fully random? (Type 'length' or 'random') ")
+    howToPick = input("Would you like a movie chosen by length, by genre, or fully random? (Type 'length', 'genre', or 'random') ")
     print()
     pick = howToPick.lower()
     whichPick(pick)
 
-# Takes user input sent by pickMovie and processes it. If it is random", the corresponding
+# Takes user input sent by pickMovie and processes it. If it is "genre", the program asks for a 
+# genre from the user and calls the corresponding function. If it is "random", the corresponding
 # function is called. If it is "length", more user input is asked for. Variable maxLength takes
 # the (minute) number input from the user, then the function pickedByLength is called.
 # If the input is something else, a warning is shown and function pickMovie is called again.
 def whichPick(somePick):
-    if somePick == 'length' or somePick == 'random':
+    if somePick == 'length' or somePick == 'random' or 'genre':
         if somePick == 'length':
             maxLength = int(input("Type the maximum length the movie can be (in minutes). "))
             pickedByLength(maxLength)
+        elif somePick == 'genre':
+            whatGenre = input("Type the genre you want the movie to be. ")
+            genre = whatGenre.lower()
+            pickedByGenre(genre)
         else:
             pickedAtRandom()
     else:
@@ -122,6 +127,31 @@ def pickedByLength(maxLength):
     randNum = random.randint(0, (len(movieList)- 1))
     randMovie = movieList[randNum]
     print(randMovie)
+
+# Takes in what the user wants the genre to be, opens the unwatched movie text file, processes each
+# movie line, and add each movie that matches in genre to a new list. A movie from the new list is 
+# picked at random and displayed
+def pickedByGenre(genre):
+    movieList = []
+    movies = open("Unwatched.txt", "r")
+    lines = movies.readlines()
+
+    for line in lines:
+        movieData = line.split(",")
+        getGenrePart = movieData[2]
+        splitGenrePart = getGenrePart.split()
+        movieGenre = splitGenrePart[1]
+        if movieGenre.lower() == genre:
+            movieList.append(line)
+    
+    if len(movieList) == 0:
+        print("There are no movies with that genre. Please start again. ")
+        print()
+        actionPick()
+    else:
+        randNum = random.randint(0, (len(movieList)- 1))
+        randMovie = movieList[randNum]
+        print(randMovie)
 
 # Opens the unwatched movie text file, processes each movie line, and picks one at random and displays it.
 def pickedAtRandom():
