@@ -5,7 +5,7 @@ Making this program helped to solve this by letting it choose for us.
 The program operates assuming that the user has set up the two text files it needs ahead of time. The two text files are Watched.txt and Unwatched.txt. 
 
 The main function of the program is to pick a movie. If the user indicates that they want a movie to be picked, they will be asked if they want it to be chosen fully at 
-random, randomly picked with a maximum length, or randomly picked from a specific genre.
+random, randomly picked with a maximum time length, or randomly picked from a specified genre.
 
 The user can add movies to either text file, inputing a movie title, length (in minutes), and genre before specifying which
 text file the program should write it to. 
